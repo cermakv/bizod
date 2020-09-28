@@ -1,4 +1,3 @@
-
 %% MATLAB veci 
 % 
 % * *TAB*       pro doplneni nazvu funkce, ci promenne.
@@ -30,13 +29,13 @@ figure;title('jednotlive slozky jako gray')
 subplot(2,2,1);imshow(A)
 subplot(2,2,2);imshow(R)
 subplot(2,2,3);imshow(G)
-subplot(2,2,4);imshow(Ag)
+subplot(2,2,4);imshow(B)
 
 % oku lahodici zobrazeni 
-nuly=zeros(size(Ag));
+nuly=zeros(size(B));
 R1=cat(3,R,nuly,nuly); %doplneni nulovymi maticemi
 G1=cat(3,nuly,G,nuly);
-B1=cat(3,nuly,nuly,Ag);
+B1=cat(3,nuly,nuly,B);
 
 figure;title('jednotlive slozky barevne')
 subplot(2,2,1);imshow(A)
@@ -72,7 +71,7 @@ procentoStejnych = f/ numel(Gray) *100;
 disp(['Stejnych pixelu: ' num2str( procentoStejnych) ' %' ]);
 
 %% Metrika pro zachyceni rozdilnosti obrazu mean-sqared error
-h = immse(double(Gray),Gray_prumer); % umocneny prumerny rozdil v hodnotach jasu
+h = sqrt(immse(double(Gray),Gray_prumer)) % umocneny prumerny rozdil v hodnotach jasu
 
 %% Cernobili (binarni) obraz
 
@@ -89,14 +88,15 @@ imshow(Aind,cmap)
 
 %% bonus: ukladani do gifu
 img = imread('coloredChips.png');
+%imshow(img)
 img_gray = rgb2gray(img);
 krok = 1;
-for ii = 1:5:256
+for ii = 0:5:255
     
    curr_obr = (img_gray<ii)*255;%aby se to rozlezlo od 0 do 255
    [A,map] = gray2ind(curr_obr,2); 
    
-    if krok ==1%prvni snimek se uklada jinak nez ostatni 
+    if krok == 1 %prvni snimek se uklada jinak nez ostatni 
         imwrite(A,map,'testAnimated.gif','gif','LoopCount',Inf,'DelayTime',0.001);
     krok = 0;
     else
