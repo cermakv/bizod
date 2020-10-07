@@ -22,6 +22,7 @@ imshow(A);
 R = A(:,:,1);
 G = A(:,:,2);
 B = A(:,:,3);
+Ag = rgb2gray(A);
 
 imshow(R)% je to sedive, protoze je to jen jedna matice
 
@@ -29,13 +30,13 @@ figure;title('jednotlive slozky jako gray')
 subplot(2,2,1);imshow(A)
 subplot(2,2,2);imshow(R)
 subplot(2,2,3);imshow(G)
-subplot(2,2,4);imshow(B)
+subplot(2,2,4);imshow(Ag)
 
 % oku lahodici zobrazeni 
-nuly=zeros(size(B));
+nuly=zeros(size(Ag));
 R1=cat(3,R,nuly,nuly); %doplneni nulovymi maticemi
 G1=cat(3,nuly,G,nuly);
-B1=cat(3,nuly,nuly,B);
+B1=cat(3,nuly,nuly,Ag);
 
 figure;title('jednotlive slozky barevne')
 subplot(2,2,1);imshow(A)
@@ -55,9 +56,9 @@ imshow(NoveBarvy);
 Gray = rgb2gray(A); % prevede na sedoton
 Gray_prumer = mean(A,3);
 subplot 121,
-imshow(Gray);title('sedoton prumerovanim')
+imshow(Gray);title('sedoton funkci rgb2gray')
 subplot 122,
-imshow(uint8(Gray_prumer));title('sedoton funkci rgb2gray')
+imshow(uint8(Gray_prumer));title('sedoton prumerovanim')
 
 %% jak zjistit jestli jsou obrazky stejne
 % je to vazeny prumer
@@ -71,7 +72,7 @@ procentoStejnych = f/ numel(Gray) *100;
 disp(['Stejnych pixelu: ' num2str( procentoStejnych) ' %' ]);
 
 %% Metrika pro zachyceni rozdilnosti obrazu mean-sqared error
-h = sqrt(immse(double(Gray),Gray_prumer)) % umocneny prumerny rozdil v hodnotach jasu
+h = immse(double(Gray),Gray_prumer) % umocneny prumerny rozdil v hodnotach jasu
 
 %% Cernobili (binarni) obraz
 
