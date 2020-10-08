@@ -1,4 +1,3 @@
-
 %% MATLAB veci 
 % 
 % * *TAB*       pro doplneni nazvu funkce, ci promenne.
@@ -23,6 +22,7 @@ imshow(A);
 R = A(:,:,1);
 G = A(:,:,2);
 B = A(:,:,3);
+Ag = rgb2gray(A);
 
 imshow(R)% je to sedive, protoze je to jen jedna matice
 
@@ -56,9 +56,9 @@ imshow(NoveBarvy);
 Gray = rgb2gray(A); % prevede na sedoton
 Gray_prumer = mean(A,3);
 subplot 121,
-imshow(Gray);title('sedoton prumerovanim')
+imshow(Gray);title('sedoton funkci rgb2gray')
 subplot 122,
-imshow(uint8(Gray_prumer));title('sedoton funkci rgb2gray')
+imshow(uint8(Gray_prumer));title('sedoton prumerovanim')
 
 %% jak zjistit jestli jsou obrazky stejne
 % je to vazeny prumer
@@ -72,7 +72,7 @@ procentoStejnych = f/ numel(Gray) *100;
 disp(['Stejnych pixelu: ' num2str( procentoStejnych) ' %' ]);
 
 %% Metrika pro zachyceni rozdilnosti obrazu mean-sqared error
-h = immse(double(Gray),Gray_prumer); % umocneny prumerny rozdil v hodnotach jasu
+h = immse(double(Gray),Gray_prumer) % umocneny prumerny rozdil v hodnotach jasu
 
 %% Cernobili (binarni) obraz
 
@@ -89,14 +89,15 @@ imshow(Aind,cmap)
 
 %% bonus: ukladani do gifu
 img = imread('coloredChips.png');
+%imshow(img)
 img_gray = rgb2gray(img);
 krok = 1;
-for ii = 1:5:256
+for ii = 0:5:255
     
    curr_obr = (img_gray<ii)*255;%aby se to rozlezlo od 0 do 255
    [A,map] = gray2ind(curr_obr,2); 
    
-    if krok ==1%prvni snimek se uklada jinak nez ostatni 
+    if krok == 1 %prvni snimek se uklada jinak nez ostatni 
         imwrite(A,map,'testAnimated.gif','gif','LoopCount',Inf,'DelayTime',0.001);
     krok = 0;
     else
