@@ -42,7 +42,7 @@ imshow(C);
 
 [x,y, ~] = ginput(1); %vytvori gui pro kliknuti do obrazu
 
-C(y-100:y+100,x-100:x+100) = histeq(C(y+100:-1:y-100,x-100:x+100));
+C(y-100:y+100,x-100:x+100) = histeq(C(y-100:y+100,x-100:x+100));
 imshow(C)
 
 %% adaptivni ekvalizace
