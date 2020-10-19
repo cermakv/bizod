@@ -1,10 +1,10 @@
 addpath('imgs') %prida slozku s obrazky
 A = imread('kytka256.jpg');
 %segmentace
-%% [0.4] segmentace kytky s pomoci graythresh
+%% [0.8] segmentace kytky s pomoci graythresh
 % pouzijte imbinarize 
 
-%% [0.5] Segmentace pøevedením do HSV
+%% [1] Segmentace pøevedením do HSV
 %prevedte do hsv,odstinovou matici segmentujte pomoci otsu metody 
 %vysledkem bude barevna kytka na sedotonovem pozadi
 %colorThresholder se vam hodi pro pochopeni
@@ -16,7 +16,7 @@ A = imread('kytka256.jpg');
 % https://www.mathworks.com/help/images/detecting-a-cell-using-image-segmentation.html
 % nemusite sem vyplnovat
 
-%% [1.1] Hledání pøerušované èáry na silnici
+%% [2.2] Hledání pøerušované èáry na silnici
 S = imread('zauta.jpg');
 %naleznete prerusovanou caru na silnici a barevne ji v sedotonovem obrazu 
 % oznacte
