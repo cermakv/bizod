@@ -16,3 +16,15 @@ VbOpen = imopen(VbClose,strel('disk',1));%odstrani male objekty
 BW = imclose(VbOpen,strel('disk',10));%zalepi diry (i ty co nejsou uplne diry)
 BW = bwareafilt(BW,1);% vezme ten nejvetsi objekt
 imshowpair(A,BW)
+
+
+%% --- Alternativni reseni (pouziti aktivnich kontur)
+%zvetsim chalupu, tak aby tam s jistotou byla cela
+mask = imdilate(Vb,strel('disk',10));
+mask = bwareafilt(mask,1);
+imshow(mask)
+%% necham presne k chalupe doiterovat aktivni kontury
+BW = activecontour(uint8(Vb*255),mask,100,'edge','SmoothFactor',0.3);
+BW = bwareafilt(BW,1);
+
+imshowpair(A,BW);
